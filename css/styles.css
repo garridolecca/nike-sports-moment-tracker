@@ -1,0 +1,276 @@
+/* =============================================================================
+   Nike Sports Moment Tracker  |  styles.css
+   ========================================================================== */
+
+/* -- Reset & base ----------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: #000;
+  overflow: hidden;
+  font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+  color: #fff;
+}
+
+/* -- Globe ------------------------------------------------------------------ */
+#viewDiv { position: absolute; inset: 0; z-index: 0; }
+
+/* Remove default ArcGIS widget chrome */
+.esri-ui-top-left,
+.esri-ui-top-right    { display: none !important; }
+.esri-attribution     { background: transparent !important; }
+.esri-ui-bottom-right {
+  z-index: 50 !important;
+  bottom:  8px  !important;
+  right:   10px !important;
+}
+
+/* -- Splash / loading ------------------------------------------------------- */
+#splash {
+  position: absolute; inset: 0; z-index: 500;
+  background: #000;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 20px;
+  transition: opacity .6s ease;
+}
+#splash.hidden { opacity: 0; pointer-events: none; }
+
+.splash-logo { opacity: .9; }
+
+.splash-text {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: .25; }
+  50%       { opacity: .9;  }
+}
+
+/* -- Header ----------------------------------------------------------------- */
+#hdr {
+  position: absolute; top: 18px; left: 22px; z-index: 200;
+  display: flex; flex-direction: column; gap: 4px;
+  pointer-events: none;
+}
+
+#hdr-logo  { margin-bottom: 2px; }
+
+#hdr-title {
+  font-size: 20px; font-weight: 900;
+  letter-spacing: 3px; text-transform: uppercase; color: #fff;
+  margin-bottom: 10px;
+}
+
+#hdr-controls {
+  display: flex; gap: 16px;
+  pointer-events: all;
+}
+
+.ctrl {
+  display: flex; align-items: center; gap: 6px;
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,.4);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 0;
+  transition: color .2s ease;
+}
+.ctrl:hover  { color: rgba(255,255,255,.75); }
+.ctrl.active { color: #fff; }
+
+.ctrl-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,.2); flex-shrink: 0;
+  transition: background .2s ease;
+}
+.ctrl.active .ctrl-dot { background: #fff; }
+
+.ctrl-icon {
+  font-size: 13px; line-height: 1; flex-shrink: 0;
+  opacity: .4; transition: opacity .2s ease;
+}
+.ctrl:hover  .ctrl-icon { opacity: .75; }
+.ctrl.active .ctrl-icon { opacity: 1; }
+
+/* -- Bottom ticker ---------------------------------------------------------- */
+#ticker {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 130px;
+  background: rgba(4,5,10,.9);
+  border-top: 1px solid rgba(255,255,255,.07);
+  z-index: 200;
+  overflow: hidden;
+  user-select: none;
+}
+
+#tickerTrack {
+  display: flex; height: 100%;
+  will-change: transform;
+  transition: transform .55s cubic-bezier(.25,.46,.45,.94);
+  cursor: grab;
+}
+#tickerTrack.dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+/* -- Event card ------------------------------------------------------------- */
+.ecard {
+  min-width: 258px; height: 130px; flex-shrink: 0;
+  display: flex; align-items: stretch;
+  border-right: 1px solid rgba(255,255,255,.07);
+  cursor: pointer;
+  transition: background .18s ease;
+}
+.ecard:hover  { background: rgba(255,255,255,.06); }
+.ecard.active { background: rgba(255,255,255,.13); }
+
+.card-bar  { width: 3px; flex-shrink: 0; align-self: stretch; }
+
+.card-dt {
+  width: 76px; min-width: 76px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 0 6px;
+  border-right: 1px solid rgba(255,255,255,.07);
+}
+.dt-month {
+  font-size: 10px; font-weight: 700;
+  color: rgba(255,255,255,.4);
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.dt-day {
+  font-size: 34px; font-weight: 800; color: #fff;
+  line-height: 1; margin: 3px 0 2px;
+}
+.dt-year { font-size: 9px; color: rgba(255,255,255,.3); }
+
+.card-info {
+  flex: 1; min-width: 0;
+  padding: 13px 14px;
+  display: flex; flex-direction: column; justify-content: center; gap: 4px;
+}
+.ci-title {
+  font-size: 12.5px; font-weight: 700; color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ci-sport {
+  font-size: 9.5px; font-weight: 600;
+  color: rgba(255,255,255,.38);
+  letter-spacing: .9px; text-transform: uppercase;
+}
+.ci-attend {
+  font-size: 9.5px; color: rgba(255,255,255,.38);
+  letter-spacing: .5px; text-transform: uppercase;
+}
+
+/* -- Event popup (fixed right panel) --------------------------------------- */
+#popup {
+  position: absolute;
+  top: 0; right: 0; bottom: 130px; /* flush with ticker top */
+  width: 340px;
+  overflow-y: auto;
+  background: rgba(6,7,14,.97);
+  border-left: 1px solid rgba(255,255,255,.1);
+  z-index: 300;
+  padding: 22px;
+  /* slide-in from right */
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(16px);
+  transition: opacity .25s ease, transform .25s ease, visibility 0s linear .25s;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.15) transparent;
+}
+#popup.open {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity .25s ease, transform .25s ease, visibility 0s;
+}
+#popup::-webkit-scrollbar       { width: 4px; }
+#popup::-webkit-scrollbar-track { background: transparent; }
+#popup::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 2px; }
+
+#popupClose {
+  position: absolute; top: 11px; right: 13px;
+  background: none; border: none;
+  color: rgba(255,255,255,.5); font-size: 22px;
+  cursor: pointer; line-height: 1; padding: 2px;
+  transition: color .2s;
+}
+#popupClose:hover { color: #fff; }
+
+.p-sport {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 7px;
+}
+.p-title {
+  font-size: 16px; font-weight: 800; color: #fff;
+  line-height: 1.3; margin-bottom: 14px;
+}
+.p-meta {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 11.5px; color: rgba(255,255,255,.55);
+  margin-bottom: 5px; line-height: 1.45;
+}
+.p-icon { flex-shrink: 0; font-size: 13px; margin-top: 1px; }
+.p-desc {
+  font-size: 11px; color: rgba(255,255,255,.35);
+  margin-top: 10px; line-height: 1.6;
+}
+.p-divider { border: none; border-top: 1px solid rgba(255,255,255,.1); margin: 16px 0; }
+.p-ath-hdr {
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: 1.3px; text-transform: uppercase;
+  color: rgba(255,255,255,.4); margin-bottom: 12px;
+}
+
+.ath-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+
+.ath-img, .ath-init {
+  width: 35px; height: 35px; border-radius: 50%; flex-shrink: 0;
+}
+.ath-img  { object-fit: cover; background: rgba(255,255,255,.08); }
+.ath-init {
+  background: rgba(255,255,255,.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: rgba(255,255,255,.5);
+}
+.ath-name   { font-size: 12.5px; font-weight: 700; color: #fff; }
+.ath-detail { font-size: 10.5px; color: rgba(255,255,255,.4); margin-top: 1px; }
+
+/* -- Strategic opportunity factors ----------------------------------------- */
+.p-factor { margin-bottom: 13px; }
+
+.p-factor-hdr {
+  display: flex; align-items: baseline; gap: 6px; margin-bottom: 5px;
+}
+.p-f-rank {
+  font-size: 9px; font-weight: 800;
+  color: rgba(255,255,255,.28); letter-spacing: .4px; min-width: 16px;
+}
+.p-f-label {
+  flex: 1; font-size: 10px; font-weight: 700;
+  color: rgba(255,255,255,.6); letter-spacing: .9px; text-transform: uppercase;
+}
+.p-f-score {
+  font-size: 15px; font-weight: 900; color: #fff; letter-spacing: -0.5px;
+}
+
+.p-f-bar-bg {
+  height: 3px; background: rgba(255,255,255,.1);
+  border-radius: 2px; margin-bottom: 6px; overflow: hidden;
+}
+.p-f-bar {
+  height: 100%; border-radius: 2px;
+  transition: width .6s cubic-bezier(.25,.46,.45,.94);
+}
+
+.p-f-rationale {
+  font-size: 10.5px; color: rgba(255,255,255,.38); line-height: 1.58;
+}
