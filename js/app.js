@@ -16,20 +16,20 @@ const CFG = {
 };
 
 const SPORT_COLORS = {
-  tennis        : '#4CAF50',
-  athletics     : '#FF6B35',
-  golf          : '#A07840',
-  basketball    : '#FF9800',
-  soccer        : '#2196F3',
-  swimming      : '#00BCD4',
-  skateboarding : '#AB47BC',
-  gymnastics    : '#EC407A',
-  breaking      : '#FFC107',
-  boxing        : '#EF5350',
-  fencing       : '#78909C',
-  paralympic    : '#26A69A',
-  cycling       : '#C6D837',
-  triathlon     : '#5C6BC0',
+  tennis        : '#CCFF00', // Volt
+  athletics     : '#FF3300', // Bright Red/Orange
+  golf          : '#00FF99', // Green glow
+  basketball    : '#FF6600', // Deep Orange
+  soccer        : '#00CCFF', // Cyan
+  swimming      : '#3399FF', // Azure
+  skateboarding : '#CC00FF', // Purple neon
+  gymnastics    : '#FF00CC', // Pink neon
+  breaking      : '#FFD700', // Gold
+  boxing        : '#FF0000', // Pure Red
+  fencing       : '#AAAAAA', // Silver
+  paralympic    : '#00FFAA', // Teal neon
+  cycling       : '#FFFF00', // Yellow
+  triathlon     : '#0055FF', // Blue
 };
 
 /* ---------------------------------------------------------------------------
