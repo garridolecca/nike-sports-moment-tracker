@@ -36,7 +36,7 @@ const SPORT_COLORS = {
    STATE
    ------------------------------------------------------------------------- */
 let sceneView  = null;
-let isAuto     = true;
+let isAuto     = false;
 let autoTimer  = null;
 let curIdx     = 0;
 
@@ -225,6 +225,9 @@ require([
     if (!ev) return;
     highlightCard(idx);
     if (Math.abs(ev.lat) < 0.01 && Math.abs(ev.lon) < 0.01) return;
+    // Offset the effective viewport so goTo centres within the visible
+    // area (left of the 340 px right-side popup panel)
+    sceneView.padding = { top: 0, right: 340, bottom: 130, left: 0 };
     sceneView.goTo(
       { position: { longitude: ev.lon, latitude: ev.lat, z: 500 }, heading: 0, tilt: 60 },
       { duration: CFG.FLY_MS, easing: 'out-quint' }
@@ -233,6 +236,7 @@ require([
 
   /* ---- Return to global view ---------------------------------------------- */
   function flyToGlobal() {
+    sceneView.padding = { top: 0, right: 0, bottom: 0, left: 0 };
     sceneView.goTo(
       { position: { longitude: CFG.INIT_LON, latitude: CFG.INIT_LAT, z: CFG.INIT_Z },
         heading: 0, tilt: 0 },
@@ -581,6 +585,7 @@ require([
     const popup = document.getElementById('popup');
     popup.classList.remove('open');
     popup.setAttribute('aria-hidden', 'true');
+    sceneView.padding = { top: 0, right: 0, bottom: 0, left: 0 };
   }
 
   document.getElementById('popupClose').addEventListener('click', closePopup);
