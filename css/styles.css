@@ -127,6 +127,7 @@ html, body {
 }
 .ecard:hover  { background: rgba(255,255,255,.06); }
 .ecard.active { background: rgba(255,255,255,.13); }
+.ecard:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
 
 .card-bar  { width: 3px; flex-shrink: 0; align-self: stretch; }
 
