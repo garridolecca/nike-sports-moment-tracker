@@ -360,7 +360,23 @@ require([
           '<div class="ci-attend">ATTENDANCE: ' + ev.attendance.toLocaleString() + '</div>' +
         '</div>';
 
+      card.setAttribute('tabindex', '0');
       card.addEventListener('click', () => { flyToClose(idx); openPopup(idx); });
+
+      // Keyboard support: Enter or Space to activate
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          flyToClose(idx);
+          openPopup(idx);
+        }
+      });
+
+      // Auto-scroll to card on focus
+      card.addEventListener('focus', () => {
+        centerTickerOnCard(card);
+      });
+
       track.appendChild(card);
     });
 
@@ -368,17 +384,22 @@ require([
   }
 
   /* -- Scroll the ticker to centre the active card -------------------------------------------------- */
+  function centerTickerOnCard(card) {
+    if (!card) return;
+    const ticker  = document.getElementById('ticker');
+    const track   = document.getElementById('tickerTrack');
+    // Calculate target scroll position to center the card
+    const target  = card.offsetLeft - (ticker.clientWidth / 2) + (card.clientWidth / 2);
+    const maxScroll = track.scrollWidth - ticker.clientWidth;
+    setTrackX(-Math.max(0, Math.min(target, maxScroll)));
+  }
+
   function highlightCard(idx) {
     document.querySelectorAll('.ecard').forEach(c => c.classList.remove('active'));
     const card = document.querySelector('.ecard[data-idx="' + idx + '"]');
     if (!card) return;
     card.classList.add('active');
-
-    const ticker  = document.getElementById('ticker');
-    const track   = document.getElementById('tickerTrack');
-    const target  = card.offsetLeft - (ticker.clientWidth / 2) + (card.clientWidth / 2);
-    const maxScroll = track.scrollWidth - ticker.clientWidth;
-    setTrackX(-Math.max(0, Math.min(target, maxScroll)));
+    centerTickerOnCard(card);
   }
 
   function setTrackX(x) {
