@@ -225,11 +225,17 @@ require([
     if (!ev) return;
     highlightCard(idx);
     if (Math.abs(ev.lat) < 0.01 && Math.abs(ev.lon) < 0.01) return;
-    // Offset the effective viewport so goTo centres within the visible
-    // area (left of the 340 px right-side popup panel)
+
+    // Tell the SDK that 340 px on the right and 130 px at the bottom are
+    // covered by UI, so it centres navigation within the remaining area.
     sceneView.padding = { top: 0, right: 340, bottom: 130, left: 0 };
+
+    // Use TARGET-based goTo (not camera-position-based).
+    // The SDK will place the target point at the centre of the padded
+    // viewport and compute the correct camera position for that tilt.
+    const target = new Point({ longitude: ev.lon, latitude: ev.lat });
     sceneView.goTo(
-      { position: { longitude: ev.lon, latitude: ev.lat, z: 500 }, heading: 0, tilt: 60 },
+      { target, scale: 3000, tilt: 60, heading: 0 },
       { duration: CFG.FLY_MS, easing: 'out-quint' }
     ).catch(() => {});
   }
