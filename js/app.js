@@ -45,6 +45,9 @@ let isDragging = false;
 let dragStartX = 0;
 let trackTX    = 0;   // current translateX (negative = scrolled right)
 
+// accessibility focus tracking
+let lastFocus  = null;
+
 /* ---------------------------------------------------------------------------
    PIN ICON  – white circle with a dark map-pin inside
    ------------------------------------------------------------------------- */
@@ -347,6 +350,7 @@ require([
       card.dataset.idx = idx;
       card.setAttribute('role', 'listitem');
       card.setAttribute('aria-label', ev.title);
+      card.setAttribute('tabindex', '0');
       card.innerHTML =
         '<div class="card-bar" style="background:' + col + '"></div>' +
         '<div class="card-dt">' +
@@ -361,6 +365,13 @@ require([
         '</div>';
 
       card.addEventListener('click', () => { flyToClose(idx); openPopup(idx); });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          flyToClose(idx);
+          openPopup(idx);
+        }
+      });
       track.appendChild(card);
     });
 
@@ -582,16 +593,36 @@ require([
       factorHtml;
 
     const popup = document.getElementById('popup');
+
+    // Store last focus to return to it later
+    if (!popup.classList.contains('open')) {
+      lastFocus = document.activeElement;
+    }
+
     popup.classList.add('open');
     popup.setAttribute('aria-hidden', 'false');
     popup.scrollTop = 0;
+
+    // Move focus to the close button inside the popup
+    setTimeout(() => {
+      const closeBtn = document.getElementById('popupClose');
+      if (closeBtn) closeBtn.focus();
+    }, 50);
   }
 
   function closePopup() {
     const popup = document.getElementById('popup');
+    if (!popup.classList.contains('open')) return;
+
     popup.classList.remove('open');
     popup.setAttribute('aria-hidden', 'true');
     sceneView.padding = { top: 0, right: 0, bottom: 0, left: 0 };
+
+    // Return focus to the trigger element
+    if (lastFocus) {
+      lastFocus.focus();
+      lastFocus = null;
+    }
   }
 
   document.getElementById('popupClose').addEventListener('click', closePopup);

@@ -81,6 +81,7 @@ html, body {
 }
 .ctrl:hover  { color: rgba(255,255,255,.75); }
 .ctrl.active { color: #fff; }
+.ctrl:focus-visible { outline: 2px solid #ccff00; outline-offset: 2px; border-radius: 2px; }
 
 .ctrl-dot {
   width: 8px; height: 8px; border-radius: 50%;
@@ -127,6 +128,7 @@ html, body {
 }
 .ecard:hover  { background: rgba(255,255,255,.06); }
 .ecard.active { background: rgba(255,255,255,.13); }
+.ecard:focus-visible { outline: 2px solid #ccff00; outline-offset: -2px; z-index: 10; }
 
 .card-bar  { width: 3px; flex-shrink: 0; align-self: stretch; }
 
@@ -203,6 +205,7 @@ html, body {
   transition: color .2s;
 }
 #popupClose:hover { color: #fff; }
+#popupClose:focus-visible { outline: 2px solid #ccff00; outline-offset: 2px; border-radius: 2px; }
 
 .p-sport {
   font-size: 10px; font-weight: 700;
