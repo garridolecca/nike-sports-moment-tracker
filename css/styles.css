@@ -274,3 +274,10 @@ html, body {
 .p-f-rationale {
   font-size: 10.5px; color: rgba(255,255,255,.38); line-height: 1.58;
 }
+
+/* -- Accessibility / Focus states ------------------------------------------- */
+button:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 2px solid #ccff00;
+  outline-offset: -2px;
+}

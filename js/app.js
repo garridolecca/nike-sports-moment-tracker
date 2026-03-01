@@ -347,6 +347,7 @@ require([
       card.dataset.idx = idx;
       card.setAttribute('role', 'listitem');
       card.setAttribute('aria-label', ev.title);
+      card.setAttribute('tabindex', '0');
       card.innerHTML =
         '<div class="card-bar" style="background:' + col + '"></div>' +
         '<div class="card-dt">' +
@@ -361,6 +362,13 @@ require([
         '</div>';
 
       card.addEventListener('click', () => { flyToClose(idx); openPopup(idx); });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); // Prevent default scrolling for Space
+          flyToClose(idx);
+          openPopup(idx);
+        }
+      });
       track.appendChild(card);
     });
 
