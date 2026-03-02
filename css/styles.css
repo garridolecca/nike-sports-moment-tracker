@@ -26,6 +26,18 @@ html, body {
   right:   10px !important;
 }
 
+/* -- Accessibility focus styles --------------------------------------------- */
+:focus-visible {
+  outline: 2px solid #ccff00;
+  outline-offset: 2px;
+}
+
+.ecard:focus-visible {
+  outline: 2px solid #ccff00;
+  outline-offset: -2px; /* Prevent clipping inside ticker */
+  background: rgba(255,255,255,.13); /* Match active state */
+}
+
 /* -- Splash / loading ------------------------------------------------------- */
 #splash {
   position: absolute; inset: 0; z-index: 500;

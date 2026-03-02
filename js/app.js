@@ -345,7 +345,8 @@ require([
       const card = document.createElement('div');
       card.className   = 'ecard';
       card.dataset.idx = idx;
-      card.setAttribute('role', 'listitem');
+      card.tabIndex    = 0;
+      card.setAttribute('role', 'button');
       card.setAttribute('aria-label', ev.title);
       card.innerHTML =
         '<div class="card-bar" style="background:' + col + '"></div>' +
@@ -361,6 +362,12 @@ require([
         '</div>';
 
       card.addEventListener('click', () => { flyToClose(idx); openPopup(idx); });
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          flyToClose(idx); openPopup(idx);
+        }
+      });
       track.appendChild(card);
     });
 
