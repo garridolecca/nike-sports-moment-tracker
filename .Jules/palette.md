@@ -1,0 +1,3 @@
+## 2024-05-24 - Interactive Elements Keyboard Accessibility
+**Learning:** In a heavily custom-styled, vanilla JS web application without a robust UI component library, basic keyboard accessibility elements are often overlooked. Specifically, custom interactive elements (like the `.ecard` ticker items) lack native focus tracking, keyboard event handling (`keydown`), and visual `:focus-visible` indicators.
+**Action:** Always verify keyboard operability (Tab order and Enter/Space activation) for custom UI components. Manually apply `tabindex="0"`, explicit `keydown` listeners, and robust `:focus-visible` styles matching the brand palette (e.g., Volt `#ccff00` for high contrast against dark themes) to ensure accessibility for non-mouse users.
