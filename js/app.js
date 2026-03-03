@@ -345,7 +345,8 @@ require([
       const card = document.createElement('div');
       card.className   = 'ecard';
       card.dataset.idx = idx;
-      card.setAttribute('role', 'listitem');
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
       card.setAttribute('aria-label', ev.title);
       card.innerHTML =
         '<div class="card-bar" style="background:' + col + '"></div>' +
@@ -360,7 +361,14 @@ require([
           '<div class="ci-attend">ATTENDANCE: ' + ev.attendance.toLocaleString() + '</div>' +
         '</div>';
 
-      card.addEventListener('click', () => { flyToClose(idx); openPopup(idx); });
+      const activateCard = () => { flyToClose(idx); openPopup(idx); };
+      card.addEventListener('click', activateCard);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activateCard();
+        }
+      });
       track.appendChild(card);
     });
 
