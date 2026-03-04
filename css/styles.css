@@ -5,6 +5,11 @@
 /* -- Reset & base ----------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+:focus-visible {
+  outline: 2px solid #ccff00;
+  outline-offset: 2px;
+}
+
 html, body {
   width: 100%; height: 100%;
   background: #000;
@@ -127,6 +132,7 @@ html, body {
 }
 .ecard:hover  { background: rgba(255,255,255,.06); }
 .ecard.active { background: rgba(255,255,255,.13); }
+.ecard:focus-visible { outline-offset: -2px; }
 
 .card-bar  { width: 3px; flex-shrink: 0; align-self: stretch; }
 

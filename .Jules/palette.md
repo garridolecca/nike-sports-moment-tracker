@@ -1,0 +1,3 @@
+## 2024-05-18 - Keyboard accessibility for dynamically created elements
+**Learning:** For dynamically created UI elements mimicking interactive controls (like the `.ecard` ticker items), explicitly setting `tabindex="0"` and binding keyboard events (like "Enter" or "Space") is critical for accessibility.
+**Action:** When adding or maintaining custom interactive elements without native semantic tags like `<button>` or `<a>`, ensure explicitly managing `tabindex` and `keydown` events. Additionally, standardise focus visibility using the designated Volt brand color (`#ccff00`).
