@@ -96,6 +96,11 @@ html, body {
 .ctrl:hover  .ctrl-icon { opacity: .75; }
 .ctrl.active .ctrl-icon { opacity: 1; }
 
+.ctrl:focus-visible {
+  outline: 2px solid #ccff00;
+  outline-offset: 2px;
+}
+
 /* -- Bottom ticker ---------------------------------------------------------- */
 #ticker {
   position: absolute; bottom: 0; left: 0; right: 0; height: 130px;
@@ -127,6 +132,10 @@ html, body {
 }
 .ecard:hover  { background: rgba(255,255,255,.06); }
 .ecard.active { background: rgba(255,255,255,.13); }
+.ecard:focus-visible {
+  outline: 2px solid #ccff00;
+  outline-offset: -2px;
+}
 
 .card-bar  { width: 3px; flex-shrink: 0; align-self: stretch; }
 
@@ -203,6 +212,10 @@ html, body {
   transition: color .2s;
 }
 #popupClose:hover { color: #fff; }
+#popupClose:focus-visible {
+  outline: 2px solid #ccff00;
+  border-radius: 2px;
+}
 
 .p-sport {
   font-size: 10px; font-weight: 700;
