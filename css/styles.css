@@ -13,6 +13,17 @@ html, body {
   color: #fff;
 }
 
+/* -- Focus States ----------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid #ccff00;
+  outline-offset: 2px;
+}
+
+.ecard:focus-visible {
+  outline: 2px solid #ccff00;
+  outline-offset: -2px; /* Inset outline to avoid clipping in the ticker container */
+}
+
 /* -- Globe ------------------------------------------------------------------ */
 #viewDiv { position: absolute; inset: 0; z-index: 0; }
 

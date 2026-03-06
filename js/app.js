@@ -310,12 +310,16 @@ require([
   /* ---- Controls ----------------------------------------------------------- */
   document.getElementById('btnAuto').addEventListener('click', () => {
     isAuto = !isAuto;
-    document.getElementById('btnAuto').classList.toggle('active', isAuto);
+    const btnAuto = document.getElementById('btnAuto');
+    btnAuto.classList.toggle('active', isAuto);
+    btnAuto.setAttribute('aria-pressed', isAuto ? 'true' : 'false');
     isAuto ? startAuto() : stopAuto();
   });
 
   document.getElementById('btnAudio').addEventListener('click', () => {
-    document.getElementById('btnAudio').classList.toggle('active');
+    const btnAudio = document.getElementById('btnAudio');
+    const isActive = btnAudio.classList.toggle('active');
+    btnAudio.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     // Wire audio logic here
   });
 
@@ -345,6 +349,7 @@ require([
       const card = document.createElement('div');
       card.className   = 'ecard';
       card.dataset.idx = idx;
+      card.tabIndex    = 0;
       card.setAttribute('role', 'listitem');
       card.setAttribute('aria-label', ev.title);
       card.innerHTML =
@@ -360,7 +365,14 @@ require([
           '<div class="ci-attend">ATTENDANCE: ' + ev.attendance.toLocaleString() + '</div>' +
         '</div>';
 
-      card.addEventListener('click', () => { flyToClose(idx); openPopup(idx); });
+      const activateCard = () => { flyToClose(idx); openPopup(idx); };
+      card.addEventListener('click', activateCard);
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activateCard();
+        }
+      });
       track.appendChild(card);
     });
 
