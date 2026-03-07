@@ -1,0 +1,3 @@
+## 2024-05-14 - Interactive Event Ticker Cards
+**Learning:** Custom interactive UI elements (like `.ecard` ticker items) must explicitly manage focus and accessibility by combining `tabindex="0"` with `keydown` event listeners for `Enter` and `Space` keys. Additionally, they require distinct `:focus-visible` styles with appropriate `outline-offset` to avoid clipping.
+**Action:** Always ensure custom interactive elements have proper `tabindex` and `keydown` event listeners for keyboard navigation, and apply `:focus-visible` styles with sufficient outline offset.
