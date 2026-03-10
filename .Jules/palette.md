@@ -1,0 +1,3 @@
+## 2024-05-24 - Interactive Ticker Card Keyboard Support
+**Learning:** Custom interactive elements (like the `.ecard` ticker items) in this dark-themed, map-centric application require explicit `:focus-visible` states using the Volt brand color `#ccff00` with negative `outline-offset` to avoid clipping. The ArcGIS SceneView can unexpectedly trap focus, so standard `tabindex="0"` must be paired with explicit `keydown` listeners for `Enter` and `Space` to ensure the interface remains navigable for keyboard users.
+**Action:** When creating custom interactive divs or list items in the ticker, always add `tabindex="0"`, a `keydown` listener handling `Enter`/`Space` mapped to the click action, and apply a high-contrast `#ccff00` focus outline with a `-2px` offset.
