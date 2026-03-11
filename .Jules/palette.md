@@ -1,0 +1,3 @@
+## 2024-05-24 - Interactive Card Keyboard Accessibility in ArcGIS SceneView
+**Learning:** Custom interactive elements (like `.ecard` items) used alongside ArcGIS SceneView can unexpectedly lose or trap browser focus. Relying solely on default keyboard navigation without explicit styling may result in clipped outlines or lost focus context due to container overflows or neighboring ArcGIS widgets.
+**Action:** Always assign explicit `tabindex="0"`, implement `keydown` listeners for `Enter` and `Space` explicitly, and define distinct `:focus-visible` styles with a negative `outline-offset` to avoid clipping when building custom interactive UI elements near ArcGIS canvas components.
