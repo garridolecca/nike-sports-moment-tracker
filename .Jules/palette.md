@@ -1,0 +1,3 @@
+## 2024-05-24 - Interactive Div Keyboard Accessibility
+**Learning:** Custom interactive UI elements created with `div` or similar non-semantic elements require explicit management of keyboard accessibility by setting `tabindex="0"` and binding `keydown` event listeners for `Enter` and `Space` keys. Additionally, using `outline-offset: -2px` with `:focus-visible` ensures focus indicators are not clipped when the element is placed within an `overflow: hidden` container like a scrolling ticker.
+**Action:** When creating custom interactive widgets, always include `tabindex` and full keyboard event support, and use inner outline offsets to handle focus styling cleanly inside overflow boundaries.
