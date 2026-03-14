@@ -5,12 +5,25 @@
 /* -- Reset & base ----------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+:root {
+  --nike-volt: #ccff00;
+  --nike-black: #000000;
+  --nike-grey: #111111;
+}
+
 html, body {
   width: 100%; height: 100%;
-  background: #000;
+  background: var(--nike-black);
   overflow: hidden;
-  font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   color: #fff;
+}
+
+/* Typography Utility */
+h1, h2, h3, h4, h5, h6,
+.oswald-font {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
 }
 
 /* -- Globe ------------------------------------------------------------------ */
@@ -60,8 +73,10 @@ html, body {
 #hdr-logo  { margin-bottom: 2px; }
 
 #hdr-title {
-  font-size: 20px; font-weight: 900;
-  letter-spacing: 3px; text-transform: uppercase; color: #fff;
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px; font-weight: 700;
+  font-style: italic;
+  letter-spacing: 2px; text-transform: uppercase; color: #fff;
   margin-bottom: 10px;
 }
 
@@ -74,20 +89,21 @@ html, body {
   display: flex; align-items: center; gap: 6px;
   background: none; border: none; cursor: pointer;
   color: rgba(255,255,255,.4);
+  font-family: 'Oswald', sans-serif;
   font-size: 11px; font-weight: 700;
   letter-spacing: 1.5px; text-transform: uppercase;
   padding: 0;
   transition: color .2s ease;
 }
 .ctrl:hover  { color: rgba(255,255,255,.75); }
-.ctrl.active { color: #fff; }
+.ctrl.active { color: var(--nike-volt); }
 
 .ctrl-dot {
-  width: 8px; height: 8px; border-radius: 50%;
+  width: 8px; height: 8px; border-radius: 0;
   background: rgba(255,255,255,.2); flex-shrink: 0;
   transition: background .2s ease;
 }
-.ctrl.active .ctrl-dot { background: #fff; }
+.ctrl.active .ctrl-dot { background: var(--nike-volt); }
 
 .ctrl-icon {
   font-size: 13px; line-height: 1; flex-shrink: 0;
@@ -121,12 +137,15 @@ html, body {
 .ecard {
   min-width: 258px; height: 130px; flex-shrink: 0;
   display: flex; align-items: stretch;
-  border-right: 1px solid rgba(255,255,255,.07);
+  border-right: 1px solid #333;
   cursor: pointer;
   transition: background .18s ease;
 }
 .ecard:hover  { background: rgba(255,255,255,.06); }
-.ecard.active { background: rgba(255,255,255,.13); }
+.ecard.active {
+  background: var(--nike-grey);
+  border-bottom: 4px solid var(--nike-volt);
+}
 
 .card-bar  { width: 3px; flex-shrink: 0; align-self: stretch; }
 
@@ -135,16 +154,19 @@ html, body {
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   padding: 0 6px;
-  border-right: 1px solid rgba(255,255,255,.07);
+  border-right: 1px solid #333;
 }
 .dt-month {
   font-size: 10px; font-weight: 700;
   color: rgba(255,255,255,.4);
   letter-spacing: 1px; text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
 }
 .dt-day {
-  font-size: 34px; font-weight: 800; color: #fff;
+  font-size: 34px; font-weight: 700; color: var(--nike-volt);
   line-height: 1; margin: 3px 0 2px;
+  font-family: 'Oswald', sans-serif;
+  font-style: italic;
 }
 .dt-year { font-size: 9px; color: rgba(255,255,255,.3); }
 
@@ -154,12 +176,16 @@ html, body {
   display: flex; flex-direction: column; justify-content: center; gap: 4px;
 }
 .ci-title {
-  font-size: 12.5px; font-weight: 700; color: #fff;
+  font-size: 14px; font-weight: 700; color: #fff;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  font-style: italic;
+  letter-spacing: 0.5px;
 }
 .ci-sport {
   font-size: 9.5px; font-weight: 600;
-  color: rgba(255,255,255,.38);
+  color: rgba(255,255,255,.6);
   letter-spacing: .9px; text-transform: uppercase;
 }
 .ci-attend {
@@ -173,8 +199,8 @@ html, body {
   top: 0; right: 0; bottom: 130px; /* flush with ticker top */
   width: 340px;
   overflow-y: auto;
-  background: rgba(6,7,14,.97);
-  border-left: 1px solid rgba(255,255,255,.1);
+  background: rgba(0,0,0, 0.95);
+  border-left: 1px solid #333;
   z-index: 300;
   padding: 22px;
   /* slide-in from right */
@@ -210,8 +236,11 @@ html, body {
   margin-bottom: 7px;
 }
 .p-title {
-  font-size: 16px; font-weight: 800; color: #fff;
-  line-height: 1.3; margin-bottom: 14px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 28px; font-weight: 700; color: #fff;
+  line-height: 0.9; margin-bottom: 14px;
+  text-transform: uppercase;
+  font-style: italic;
 }
 .p-meta {
   display: flex; align-items: flex-start; gap: 8px;
@@ -263,14 +292,20 @@ html, body {
 }
 
 .p-f-bar-bg {
-  height: 3px; background: rgba(255,255,255,.1);
-  border-radius: 2px; margin-bottom: 6px; overflow: hidden;
+  height: 4px; background: #222;
+  border-radius: 0; margin-bottom: 6px; overflow: hidden;
 }
 .p-f-bar {
-  height: 100%; border-radius: 2px;
+  height: 100%; border-radius: 0;
+  background: var(--nike-volt);
   transition: width .6s cubic-bezier(.25,.46,.45,.94);
 }
 
 .p-f-rationale {
-  font-size: 10.5px; color: rgba(255,255,255,.38); line-height: 1.58;
+  font-size: 10.5px; color: rgba(255,255,255,.5); line-height: 1.58;
+}
+
+.p-f-score {
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px; font-weight: 700; color: var(--nike-volt); letter-spacing: -0.5px;
 }
